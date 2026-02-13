@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/oussa/Downloads/machine-learning-project/mlruns/905967612892822029/64f76dc9530f41cdb62bf1291b6a06cc/artifacts
+end_time: 1770980874713
+entry_point_name: ''
+experiment_id: '905967612892822029'
+lifecycle_stage: active
+run_id: 64f76dc9530f41cdb62bf1291b6a06cc
+run_name: Clustering
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1770980873473
+status: 3
+tags: []
+user_id: oussa

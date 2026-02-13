@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/oussa/Downloads/machine-learning-project/mlruns/905967612892822029/568a377fbceb4434a9a914d0d818ba4a/artifacts
+end_time: 1770980866679
+entry_point_name: ''
+experiment_id: '905967612892822029'
+lifecycle_stage: active
+run_id: 568a377fbceb4434a9a914d0d818ba4a
+run_name: Preprocessing
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1770980866506
+status: 3
+tags: []
+user_id: oussa

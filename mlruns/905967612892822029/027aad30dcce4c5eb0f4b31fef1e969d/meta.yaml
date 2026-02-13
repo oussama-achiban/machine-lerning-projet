@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/oussa/Downloads/machine-learning-project/mlruns/905967612892822029/027aad30dcce4c5eb0f4b31fef1e969d/artifacts
+end_time: 1770980869765
+entry_point_name: ''
+experiment_id: '905967612892822029'
+lifecycle_stage: active
+run_id: 027aad30dcce4c5eb0f4b31fef1e969d
+run_name: Dimensionality_Reduction
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1770980866732
+status: 3
+tags: []
+user_id: oussa

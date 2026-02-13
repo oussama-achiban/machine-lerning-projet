@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/oussa/Downloads/machine-learning-project/mlruns/905967612892822029/fa81da20196a41349b75c19ad7fd8b49/artifacts
+end_time: 1770980599792
+entry_point_name: ''
+experiment_id: '905967612892822029'
+lifecycle_stage: active
+run_id: fa81da20196a41349b75c19ad7fd8b49
+run_name: Classical_Models
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1770980597900
+status: 3
+tags: []
+user_id: oussa

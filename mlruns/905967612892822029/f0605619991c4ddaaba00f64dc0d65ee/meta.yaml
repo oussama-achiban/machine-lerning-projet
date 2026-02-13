@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/oussa/Downloads/machine-learning-project/mlruns/905967612892822029/f0605619991c4ddaaba00f64dc0d65ee/artifacts
+end_time: 1770980882092
+entry_point_name: ''
+experiment_id: '905967612892822029'
+lifecycle_stage: active
+run_id: f0605619991c4ddaaba00f64dc0d65ee
+run_name: Final_Summary
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1770980881942
+status: 3
+tags: []
+user_id: oussa

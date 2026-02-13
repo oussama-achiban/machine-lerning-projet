@@ -1,0 +1,22 @@
+artifact_path: file:c:/Users/oussa/Downloads/machine-learning-project/mlruns/1/models/m-f738bf4623214031b29954803034ac19/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.13.1
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.6.1
+mlflow_version: 3.8.1
+model_id: m-f738bf4623214031b29954803034ac19
+model_size_bytes: 773
+model_uuid: m-f738bf4623214031b29954803034ac19
+prompts: null
+run_id: 0d87718d2bb54b8cb5f69ede6d3a0ac6
+utc_time_created: '2026-02-12 14:37:33.407433'

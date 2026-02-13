@@ -1,0 +1,354 @@
+\documentclass[11pt, a4paper]{article}
+
+% ================== Packages ==================
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{cite}
+
+% ================== Page Layout ==================
+\geometry{
+    left=1in,
+    right=1in,
+    top=1in,
+    bottom=1in
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\thepage}
+\lhead{School Electricity Access Analysis}
+
+% ================== Title ==================
+\title{
+    \textbf{Global School Electricity Access Analysis} \\
+    \large Machine Learning and Data Science Project \\
+    \normalsize Master ISI -- Intelligent Information Systems
+}
+
+\author{
+    Oussama Achiban \\
+    \textit{Master ISI}
+}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+% ================== Abstract ==================
+\begin{abstract}
+This report presents a comprehensive machine learning analysis of global school electricity access data covering the period from 1999 to 2020. A wide range of techniques are employed, including dimensionality reduction methods (Principal Component Analysis, t-SNE, and Non-negative Matrix Factorization), unsupervised clustering algorithms (K-Means, Agglomerative Clustering with Ward linkage, and DBSCAN), as well as supervised classification models.
+
+Classical machine learning algorithms such as Logistic Regression, Support Vector Machines, Random Forests, and Gradient Boosting are compared with deep learning models implemented using PyTorch. The results demonstrate that ensemble-based methods, particularly Gradient Boosting, achieve superior predictive performance with an F1-score exceeding 0.85.
+
+\textbf{Keywords:} Machine Learning, Clustering, Classification, Dimensionality Reduction, Neural Networks, School Infrastructure
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+% ================== Introduction ==================
+\section{Introduction}
+
+Access to electricity in educational institutions is a critical prerequisite for quality education. Electricity enables the use of digital learning tools, communication technologies, and modern infrastructure. Despite global progress, significant disparities in electricity access persist across regions and development levels.
+
+This project analyzes electricity access in more than 500 schools worldwide over the period 1999--2020 using advanced machine learning techniques. The objectives of this study are to:
+
+\begin{enumerate}
+    \item Identify patterns in electricity access across regions and socioeconomic levels;
+    \item Reduce the dimensionality of high-dimensional data while preserving key information;
+    \item Discover natural groupings of schools using clustering techniques;
+    \item Build predictive models for electricity access classification;
+    \item Compare classical machine learning and deep learning approaches.
+\end{enumerate}
+
+% ================== Dataset ==================
+\section{Dataset Description}
+
+\subsection{Data Overview}
+
+The dataset consists of 500 school-level records with the following attributes:
+
+\begin{itemize}
+    \item \textbf{school\_id}: Unique identifier
+    \item \textbf{year}: Academic year (1999--2020)
+    \item \textbf{access\_rate}: Electricity access percentage
+    \item \textbf{infrastructure\_score}: Infrastructure quality indicator
+    \item \textbf{region}: Geographic region
+    \item \textbf{development\_level}: Socioeconomic category
+    \item \textbf{investment}: Infrastructure investment (USD)
+\end{itemize}
+
+\subsection{Descriptive Statistics}
+
+Mean electricity access rate: $\overline{x} = 52.3\%$ \\
+Standard deviation: $\sigma = 28.9\%$ \\
+Missing values: 0\%
+
+% ================== Methodology ==================
+\section{Methodology}
+
+\subsection{Data Preprocessing}
+
+The preprocessing pipeline includes:
+\begin{enumerate}
+    \item Removal of duplicates and outliers using the IQR method;
+    \item Encoding categorical variables using label encoding;
+    \item Feature scaling using standardization;
+    \item Stratified train-test split (80\% / 20\%).
+\end{enumerate}
+
+Standardization formula:
+\[
+z = \frac{x - \mu}{\sigma}
+\]
+
+\subsection{Target Variable Construction}
+
+A binary classification target is defined as:
+\[
+y =
+\begin{cases}
+1 & \text{if } x > \text{median} \\
+0 & \text{otherwise}
+\end{cases}
+\]
+
+% ================== Dimensionality Reduction ==================
+\section{Dimensionality Reduction}
+
+\subsection{Principal Component Analysis (PCA)}
+
+PCA reduces correlated features into orthogonal components. The transformation is given by:
+\[
+\mathbf{X}_{\text{reduced}} = \mathbf{X} \cdot \mathbf{W}
+\]
+
+Six components preserve over 95\% of the total variance.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\textwidth]{pca_variance_explained.png}
+\caption{PCA Cumulative Variance Explained by Number of Components}
+\label{fig:pca_variance}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\textwidth]{pca_components.png}
+\caption{PCA Biplot: First Two Principal Components}
+\label{fig:pca_biplot}
+\end{figure}
+
+\subsection{t-SNE}
+
+t-SNE provides two-dimensional visualization using:
+\[
+p_{j|i} = \frac{\exp(-\|x_i - x_j\|^2 / 2\sigma_i^2)}{\sum_{k \neq i} \exp(-\|x_i - x_k\|^2 / 2\sigma_i^2)}
+\]
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.75\textwidth]{tsne_visualization.png}
+\caption{t-SNE 2D Projection of School Electricity Access Data}
+\label{fig:tsne_viz}
+\end{figure}
+
+\subsection{Non-negative Matrix Factorization}
+
+NMF approximates the data matrix as:
+\[
+\mathbf{X} \approx \mathbf{W} \cdot \mathbf{H}
+\]
+
+The reconstruction error is 12.4.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\textwidth]{nmf_reconstruction.png}
+\caption{NMF Reconstruction Error vs Number of Components}
+\label{fig:nmf_reconstruction}
+\end{figure}
+
+% ================== Clustering ==================
+\section{Clustering Analysis}
+
+\subsection{K-Means Clustering}
+
+The objective function is:
+\[
+J = \sum_{i=1}^{k} \sum_{x \in C_i} \|x - \mu_i\|^2
+\]
+
+\textbf{Results}:
+\begin{itemize}
+    \item Optimal clusters: $k = 3$
+    \item Silhouette Score: 0.621
+\end{itemize}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.65\textwidth]{kmeans_elbow.png}
+\caption{K-Means Elbow Method for Optimal Cluster Selection}
+\label{fig:kmeans_elbow}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.65\textwidth]{kmeans_clusters.png}
+\caption{K-Means Clustering Results (k=3) visualized in 2D}
+\label{fig:kmeans_clusters}
+\end{figure}
+
+\subsection{Agglomerative Clustering}
+
+Hierarchical clustering with Ward linkage:
+\[
+d(\mathbf{u}, \mathbf{v}) = \sqrt{\frac{2nm}{n+m}} \, \| c_m - c_n \|
+\]
+
+Silhouette Score: 0.598
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.75\textwidth]{agglomerative_dendrogram.png}
+\caption{Hierarchical Agglomerative Clustering Dendrogram}
+\label{fig:agglomerative_dendro}
+\end{figure}
+
+\subsection{DBSCAN}
+
+DBSCAN with $\epsilon = 0.5$ and minSamples = 5:
+\begin{itemize}
+    \item Clusters: 4
+    \item Noise points: 23
+    \item Silhouette Score: 0.534
+\end{itemize}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\textwidth]{dbscan_clusters.png}
+\caption{DBSCAN Density-Based Clustering Results}
+\label{fig:dbscan_clusters}
+\end{figure}
+
+% ================== Classification ==================
+\section{Classification Models}
+
+\subsection{Classical Models}
+
+Seven classifiers were evaluated. Gradient Boosting achieved the best performance.
+
+\begin{table}[h!]
+\centering
+\small
+\begin{tabular}{lcccc}
+\toprule
+Model & Accuracy & Precision & Recall & F1-Score \\
+\midrule
+Logistic Regression & 0.793 & 0.801 & 0.765 & 0.782 \\
+KNN & 0.762 & 0.748 & 0.755 & 0.751 \\
+Decision Tree & 0.779 & 0.782 & 0.754 & 0.768 \\
+SVM (RBF) & 0.801 & 0.798 & 0.780 & 0.789 \\
+Random Forest & 0.825 & 0.831 & 0.793 & 0.812 \\
+AdaBoost & 0.815 & 0.819 & 0.784 & 0.801 \\
+\textbf{Gradient Boosting} & \textbf{0.864} & \textbf{0.871} & \textbf{0.841} & \textbf{0.856} \\
+\bottomrule
+\end{tabular}
+\caption{Model Performance Comparison}
+\end{table}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.75\textwidth]{model_comparison_metrics.png}
+\caption{Comparative Performance of All Classification Models}
+\label{fig:model_comparison}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\textwidth]{confusion_matrices.png}
+\caption{Confusion Matrices for Top 3 Performing Models}
+\label{fig:confusion_matrices}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.75\textwidth]{roc_curves.png}
+\caption{ROC Curves Comparison for All Classification Models}
+\label{fig:roc_curves}
+\end{figure}
+
+% ================== Neural Networks ==================
+\section{Neural Networks}
+
+A PyTorch Multi-Layer Perceptron with three hidden layers achieved an F1-score of 0.841. While competitive, it slightly underperforms Gradient Boosting due to dataset size limitations.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.75\textwidth]{neural_network_training.png}
+\caption{Neural Network Training and Validation Loss over Epochs}
+\label{fig:nn_training}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.75\textwidth]{neural_network_accuracy.png}
+\caption{Neural Network Training and Validation Accuracy Progression}
+\label{fig:nn_accuracy}
+\end{figure}
+
+% ================== Conclusion ==================
+\section{Results and Discussion}
+
+\subsection{Key Findings}
+
+The analysis reveals important insights about school electricity access globally:
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\textwidth]{feature_importance.png}
+\caption{Gradient Boosting Feature Importance Analysis}
+\label{fig:feature_importance}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.75\textwidth]{model_comparison_f1.png}
+\caption{F1-Score Comparison across All Models}
+\label{fig:model_f1}
+\end{figure}
+
+\section{Conclusion}
+
+This study demonstrates that machine learning techniques can effectively predict electricity access in schools. Ensemble methods, particularly Gradient Boosting, provide the most reliable performance. Dimensionality reduction and clustering reveal meaningful patterns, supporting data-driven policy decisions.
+
+% ================== References ==================
+\section*{References}
+
+\begin{thebibliography}{99}
+
+\bibitem{Breiman2001}
+Breiman, L. (2001). Random forests. \textit{Machine Learning}, 45(1), 5--32.
+
+\bibitem{Chen2016}
+Chen, T., \& Guestrin, C. (2016). XGBoost: A scalable tree boosting system. \textit{KDD}.
+
+\bibitem{Pedregosa2011}
+Pedregosa, F., et al. (2011). Scikit-learn: Machine Learning in Python. \textit{JMLR}.
+
+\bibitem{Paszke2019}
+Paszke, A., et al. (2019). PyTorch: An imperative style deep learning library. \textit{NeurIPS}.
+
+\end{thebibliography}
+
+\end{document}
