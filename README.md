@@ -11,7 +11,6 @@ Repository GitHub:
 - Notebook d'analyse (`notebooks/exploration.ipynb`)
 - Figures et rapport (`notebooks/images/`, `reports/report.tex`)
 - Tracking d'experiences (`mlruns/`, `mlflow.db`)
-- Interface web Next.js/Tailwind (dossiers `app/`, `components/`, etc.)
 
 ## Structure principale
 
@@ -36,16 +35,14 @@ machine-learning-project/
   mlruns/
   main.py
   requirements.txt
-  package.json
 ```
 
 ## Prerequis
 
 - Python 3.10+
 - pip
-- (Optionnel UI) Node.js 20+ et pnpm/npm
 
-## Installation (partie ML Python)
+## Installation
 
 ```bash
 python -m venv .venv
@@ -62,15 +59,6 @@ pip install -r requirements.txt
 python main.py
 ```
 
-Ce script:
-- charge/genere les donnees si besoin,
-- preprocess,
-- applique reduction de dimension,
-- execute clustering,
-- entraine les modeles classiques,
-- entraine le modele PyTorch,
-- enregistre les runs MLflow.
-
 ### 2) Ouvrir le notebook
 
 ```bash
@@ -85,20 +73,6 @@ mlflow ui --backend-store-uri file:./mlruns
 ```
 
 Puis ouvrir `http://127.0.0.1:5000`.
-
-## Interface Web (optionnelle)
-
-```bash
-pnpm install
-pnpm dev
-```
-
-Ou avec npm:
-
-```bash
-npm install
-npm run dev
-```
 
 ## Rapport
 
@@ -127,5 +101,5 @@ git push
 
 ## Notes
 
-- Les resultats de performance dependent du jeu de donnees et de l'environnement.
+- Les resultats dependent du jeu de donnees et de l'environnement.
 - Si `data/raw/electricity_access_data.csv` est absent, `main.py` peut creer un dataset d'exemple.

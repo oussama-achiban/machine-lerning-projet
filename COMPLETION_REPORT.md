@@ -13,7 +13,6 @@ Projet adapte et documente.
   - execution du pipeline ML,
   - ouverture du notebook,
   - lancement de MLflow,
-  - lancement de l'UI Next.js (optionnel),
   - push Git.
 
 ## Fichiers mis a jour
@@ -23,6 +22,7 @@ Projet adapte et documente.
 - `INDEX.md`
 - `PROJECT_SUMMARY.md`
 - `COMPLETION_REPORT.md`
+- `PROJECT_STRUCTURE.txt`
 
 ## Verification
 
@@ -35,6 +35,6 @@ Projet adapte et documente.
 
 ```bash
 git add .
-git commit -m "docs: adapt markdown files to current project"
+git commit -m "docs: adapt markdown files to ML-only structure"
 git push
 ```

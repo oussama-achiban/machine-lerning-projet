@@ -37,21 +37,7 @@ cd reports
 pdflatex report.tex
 ```
 
-## 6) Lancer l'interface web (optionnel)
-
-```bash
-pnpm install
-pnpm dev
-```
-
-ou:
-
-```bash
-npm install
-npm run dev
-```
-
-## 7) Push des changements
+## 6) Push des changements
 
 ```bash
 git add .

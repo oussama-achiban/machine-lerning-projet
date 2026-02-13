@@ -18,7 +18,6 @@ Construire un pipeline de Machine Learning pour analyser et predire l'acces a l'
 - Notebook: `notebooks/exploration.ipynb`
 - Rapport: `reports/report.tex` + `notebooks/images/report_images.tex`
 - Tracking: `mlruns/`, `mlflow.db`
-- UI optionnelle: Next.js (`app/`, `components/`, `package.json`)
 
 ## Workflow technique
 
@@ -33,7 +32,7 @@ Construire un pipeline de Machine Learning pour analyser et predire l'acces a l'
 ## Etat actuel
 
 - Le projet est operationnel pour execution locale.
-- La documentation Markdown a ete harmonisee avec la structure reelle du repo.
+- La documentation Markdown est harmonisee avec la structure ML-only du repo.
 - Le rapport image (`notebooks/images/report_images.tex`) inclut figures, tables, MLflow et lien GitHub.
 
 ## Lancement rapide

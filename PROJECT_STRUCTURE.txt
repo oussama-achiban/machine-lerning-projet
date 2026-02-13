@@ -1,332 +1,83 @@
-================================================================================
-              GLOBAL SCHOOL ELECTRICITY ACCESS - ML PROJECT
-                    Complete Project Structure & Overview
-================================================================================
-
-PROJECT HIERARCHY:
-==================
-
-project/
-│
-├── 📊 DATA LAYER
-│   ├── data/
-│   │   ├── raw/
-│   │   │   └── electricity_access_data.csv (Sample 500 schools dataset)
-│   │   └── processed/
-│   │       ├── X_train.npy (Preprocessed training features)
-│   │       ├── X_test.npy (Preprocessed test features)
-│   │       ├── y_train.npy (Training labels)
-│   │       └── y_test.npy (Test labels)
-│   │
-│
-├── 🔧 CORE ML MODULES (src/)
-│   ├── src/
-│   │   ├── __init__.py
-│   │   │
-│   │   ├── 📥 data_preprocessing.py (157 lines)
-│   │   │   ├── DataPreprocessor class
-│   │   │   ├── load_data()
-│   │   │   ├── handle_missing_values()
-│   │   │   ├── encode_categorical()
-│   │   │   ├── create_target_variable()
-│   │   │   ├── normalize_features()
-│   │   │   └── preprocess_pipeline()
-│   │   │
-│   │   ├── 📉 dimensionality_reduction.py (139 lines)
-│   │   │   ├── DimensionalityReducer class
-│   │   │   ├── apply_pca() → 42.3% variance in PC1
-│   │   │   ├── apply_pca_full() → 6 components for 95% var
-│   │   │   ├── apply_tsne() → 2D visualization
-│   │   │   ├── apply_nmf() → parts-based decomposition
-│   │   │   └── plot_* visualization methods
-│   │   │
-│   │   ├── 🎯 clustering.py (184 lines)
-│   │   │   ├── Clusterer class
-│   │   │   ├── apply_kmeans() → k=3, silhouette=0.621
-│   │   │   ├── elbow_method() → optimal k selection
-│   │   │   ├── apply_agglomerative() → hierarchical clustering
-│   │   │   ├── apply_dbscan() → 4 clusters + noise
-│   │   │   └── plot_* visualization methods
-│   │   │
-│   │   ├── 🤖 classical_models.py (257 lines)
-│   │   │   ├── ClassicalModels class
-│   │   │   ├── logistic_regression() → F1=0.782
-│   │   │   ├── knn() → F1=0.751
-│   │   │   ├── decision_tree() → F1=0.768
-│   │   │   ├── svm() → F1=0.789
-│   │   │   ├── random_forest() → F1=0.812
-│   │   │   ├── adaboost() → F1=0.801
-│   │   │   ├── gradient_boosting() → F1=0.856 ⭐
-│   │   │   ├── get_results_df() → comparison table
-│   │   │   └── plot_* visualization methods
-│   │   │
-│   │   ├── 🧠 neural_network_pytorch.py (258 lines)
-│   │   │   ├── CustomDataset class
-│   │   │   ├── MLP class → 7→128→64→32→2 neurons
-│   │   │   ├── NeuralNetworkTrainer class
-│   │   │   ├── train_epoch()
-│   │   │   ├── validate()
-│   │   │   ├── fit() → 100 epochs
-│   │   │   ├── predict()
-│   │   │   ├── evaluate() → F1=0.841
-│   │   │   ├── save_model()
-│   │   │   └── plot_training_history()
-│   │   │
-│   │   ├── 📊 evaluation.py (225 lines)
-│   │   │   ├── ModelEvaluator class
-│   │   │   │   ├── calculate_metrics() → Acc, Prec, Rec, F1
-│   │   │   │   ├── plot_confusion_matrix()
-│   │   │   │   └── plot_roc_curve()
-│   │   │   │
-│   │   │   ├── MLflowTracker class
-│   │   │   │   ├── start_run()
-│   │   │   │   ├── log_params()
-│   │   │   │   ├── log_metrics()
-│   │   │   │   ├── log_model()
-│   │   │   │   └── end_run()
-│   │   │   │
-│   │   │   └── ExperimentOrganizer class
-│   │   │       ├── compare_models()
-│   │   │       ├── rank_models()
-│   │   │       └── plot_model_comparison()
-│   │   │
-│   │
-│
-├── 🚀 EXECUTION LAYER
-│   ├── main.py (244 lines)
-│   │   └── Complete pipeline orchestration:
-│   │       1. Data preprocessing
-│   │       2. Dimensionality reduction
-│   │       3. Clustering analysis
-│   │       4. Classical models training
-│   │       5. Neural network training
-│   │       6. Model evaluation
-│   │       7. MLflow experiment logging
-│   │
-│
-├── 📓 ANALYSIS & NOTEBOOKS
-│   ├── notebooks/
-│   │   └── exploration.ipynb (511 lines)
-│   │       ├── Setup & imports
-│   │       ├── EDA (Exploratory Data Analysis)
-│   │       ├── Data preprocessing demo
-│   │       ├── Dimensionality reduction visuals
-│   │       ├── Clustering results
-│   │       ├── Classical models comparison
-│   │       ├── Neural network training
-│   │       └── Final model comparison & insights
-│   │
-│
-├── 📜 REPORTS & DOCUMENTATION
-│   ├── reports/
-│   │   └── report.tex (351 lines)
-│   │       └── Academic Scientific Report:
-│   │           ├── Title page
-│   │           ├── Abstract
-│   │           ├── Introduction
-│   │           ├── Dataset Description
-│   │           ├── Methodology (with equations)
-│   │           ├── Dimensionality Reduction section
-│   │           ├── Clustering Analysis section
-│   │           ├── Classification Models section (7 models)
-│   │           ├── Neural Networks (PyTorch) section
-│   │           ├── Results & Discussion
-│   │           ├── Conclusions & Recommendations
-│   │           └── References (academic citations)
-│   │
-│   ├── README.md (390 lines)
-│   │   ├── Project overview
-│   │   ├── Installation instructions
-│   │   ├── Usage examples
-│   │   ├── API documentation
-│   │   ├── Results summary
-│   │   ├── Technical details
-│   │   └── Troubleshooting
-│   │
-│   ├── QUICK_START.md (253 lines)
-│   │   ├── 5-minute setup
-│   │   ├── Quick command reference
-│   │   ├── Code examples
-│   │   └── Troubleshooting tips
-│   │
-│   ├── PROJECT_SUMMARY.md (315 lines)
-│   │   ├── File inventory
-│   │   ├── Key features
-│   │   ├── Algorithm details
-│   │   ├── Performance metrics
-│   │   └── Future extensions
-│   │
-│   └── PROJECT_STRUCTURE.txt (This file)
-│       └── Visual project hierarchy
-│
-│
-├── 💾 MODEL STORAGE
-│   └── models/
-│       └── neural_network.pth (Trained PyTorch model)
-│
-│
-├── 🔌 CONFIGURATION & DEPENDENCIES
-│   ├── requirements.txt
-│   │   ├── numpy==1.24.3
-│   │   ├── pandas==2.0.3
-│   │   ├── scikit-learn==1.3.0
-│   │   ├── matplotlib==3.7.2
-│   │   ├── seaborn==0.12.2
-│   │   ├── torch==2.0.1
-│   │   ├── mlflow==2.6.0
-│   │   └── jupyter==1.0.0
-│   │
-│
-================================================================================
-ALGORITHM SUMMARY
+﻿================================================================================
+          GLOBAL SCHOOL ELECTRICITY ACCESS - PROJECT STRUCTURE
 ================================================================================
 
-DIMENSIONALITY REDUCTION (3 algorithms)
-├── PCA: Principal Component Analysis
-│   └── 6 components capture 95% variance
-├── t-SNE: t-Stochastic Neighbor Embedding
-│   └── 2D visualization with perplexity=30
-└── NMF: Non-negative Matrix Factorization
-    └── Parts-based decomposition
+ROOT
+====
+machine-learning-project/
+|-- data/
+|   |-- raw/
+|   |   `-- electricity_access_data.csv
+|   `-- processed/
+|       |-- X_train.npy
+|       |-- X_test.npy
+|       |-- y_train.npy
+|       `-- y_test.npy
+|
+|-- src/
+|   |-- __init__.py
+|   |-- data_preprocessing.py
+|   |-- dimensionality_reduction.py
+|   |-- clustering.py
+|   |-- classical_models.py
+|   |-- neural_network_pytorch.py
+|   `-- evaluation.py
+|
+|-- notebooks/
+|   |-- exploration.ipynb
+|   `-- images/
+|       |-- eda_numeric_distributions.png
+|       |-- eda_correlation_heatmap.png
+|       |-- eda_category_counts_region.png
+|       |-- eda_category_counts_development_level.png
+|       |-- dimred_pca_cumulative_variance.png
+|       |-- dimred_2d_projections.png
+|       |-- clustering_elbow_silhouette.png
+|       |-- clustering_assignments_pca.png
+|       |-- classification_model_comparison.png
+|       `-- report_images.tex
+|
+|-- reports/
+|   `-- report.tex
+|
+|-- models/
+|   `-- neural_network.pth
+|
+|-- mlruns/
+|-- mlflow.db
+|-- main.py
+|-- requirements.txt
+|-- README.md
+|-- QUICK_START.md
+|-- INDEX.md
+|-- PROJECT_SUMMARY.md
+|-- COMPLETION_REPORT.md
+|-- PROJECT_STRUCTURE.txt
+`-- .gitignore
 
-CLUSTERING (3 algorithms)
-├── K-Means: Centroid-based
-│   └── Optimal k=3 (Silhouette=0.621)
-├── Agglomerative: Hierarchical
-│   └── Ward linkage (Silhouette=0.598)
-└── DBSCAN: Density-based
-    └── eps=0.5, minSamples=5 (4 clusters + noise)
 
-CLASSIFICATION (8 algorithms)
-├── Logistic Regression (F1=0.782)
-├── K-Nearest Neighbors (F1=0.751)
-├── Decision Tree (F1=0.768)
-├── Support Vector Machine (F1=0.789)
-├── Random Forest (F1=0.812)
-├── AdaBoost (F1=0.801)
-├── Gradient Boosting ⭐ (F1=0.856) - BEST
-└── Neural Network MLP (F1=0.841)
+PIPELINE OVERVIEW
+=================
+1. Data loading and preprocessing
+2. Dimensionality reduction (PCA, t-SNE, NMF)
+3. Clustering (K-Means, Agglomerative, DBSCAN)
+4. Classification (classical ML models)
+5. Neural network training (PyTorch)
+6. Evaluation and MLflow tracking
+7. Reporting (notebook figures + LaTeX report)
 
-EXPERIMENT TRACKING
-└── MLflow: Parameter logging, metric tracking, model versioning
 
-================================================================================
-DATA FLOW
-================================================================================
+KEY ENTRY POINTS
+================
+- Main pipeline: `python main.py`
+- Notebook: `jupyter notebook notebooks/exploration.ipynb`
+- MLflow UI: `mlflow ui --backend-store-uri file:./mlruns`
+- Report build: `cd reports && pdflatex report.tex`
 
-Raw Data (CSV)
-    ↓
-[Preprocessing] → Handle missing values, encode, normalize, split
-    ↓
-Processed Data (X_train, X_test, y_train, y_test)
-    ↓
-    ├→ [Dimensionality Reduction] → PCA, t-SNE, NMF
-    │       ↓
-    │       [Visualization] → 2D plots
-    │
-    ├→ [Clustering] → K-Means, Agglomerative, DBSCAN
-    │       ↓
-    │       [Analysis] → Elbow method, silhouette scores
-    │
-    ├→ [Classical Models] → 7 algorithms trained
-    │       ↓
-    │       [Evaluation] → Accuracy, Precision, Recall, F1
-    │
-    └→ [Neural Network] → PyTorch MLP trained
-            ↓
-            [Evaluation] → Loss, accuracy curves
-                ↓
-                [Model Comparison] → MLflow dashboard
-                ↓
-                [Reports] → LaTeX scientific report
 
-================================================================================
-KEY METRICS & PERFORMANCE
-================================================================================
+NOTES
+=====
+- Frontend React/Next.js files were removed from this project.
+- Documentation files were updated to match the current ML-only structure.
 
-Dataset: 500 schools, 7 features, 2 classes
-Train/Test: 80/20 split (stratified)
-
-Best Model: Gradient Boosting
-├── Accuracy: 0.864
-├── Precision: 0.871
-├── Recall: 0.841
-├── F1-Score: 0.856 ⭐
-└── AUC-ROC: 0.912
-
-Clustering Performance (K-Means, k=3):
-├── Silhouette Score: 0.621
-├── Davies-Bouldin Index: 0.847
-└── Clusters: Well-separated
-
-Dimensionality Reduction:
-├── PCA @ 2D: 68.7% variance retained
-├── PCA @ 6D: 95% variance retained
-└── 84% information compression
-
-================================================================================
-USAGE PATTERNS
-================================================================================
-
-1. QUICK RUN (All algorithms):
-   $ python main.py
-
-2. INTERACTIVE EXPLORATION:
-   $ jupyter notebook notebooks/exploration.ipynb
-
-3. SPECIFIC ALGORITHM:
-   from src.classical_models import get_classical_models
-   models = get_classical_models()
-   models.gradient_boosting(X_train, y_train, X_test, y_test)
-
-4. EXPERIMENT TRACKING:
-   $ mlflow ui → http://localhost:5000
-
-5. SCIENTIFIC REPORT:
-   $ cd reports && pdflatex report.tex
-
-================================================================================
-CODE STATISTICS
-================================================================================
-
-Total Lines of Code:     ~2,500
-Total Files:              15
-Core Modules:             8
-Functions Implemented:    80+
-Classes Implemented:      12
-Documentation Lines:      1,500+
-Test Coverage:            95% (via Jupyter notebook)
-
-Module Breakdown:
-├── Data Preprocessing:    157 lines
-├── Dimensionality Red.:   139 lines
-├── Clustering:            184 lines
-├── Classical Models:      257 lines
-├── Neural Networks:       258 lines
-├── Evaluation:            225 lines
-└── Main Pipeline:         244 lines
-
-================================================================================
-PRODUCTION READINESS
-================================================================================
-
-✅ Modular architecture
-✅ Error handling & validation
-✅ Comprehensive logging
-✅ Type hints throughout
-✅ Docstrings for all functions
-✅ Model serialization
-✅ Experiment tracking
-✅ Reproducible results
-✅ Scalable algorithms
-✅ GPU support (PyTorch)
-
-Ready for:
-- Deployment to production
-- Academic publication
-- Educational purposes
-- Further research extensions
-
-================================================================================
-                            END OF PROJECT STRUCTURE
 ================================================================================
